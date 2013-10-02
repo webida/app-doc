@@ -25,324 +25,12 @@
 
     var $ = jQuery;
 
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallback
-    * @param {err} error - Error message. Error message is string or undefined
-    * @return {undefined}
-    */
-    
-	/**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithSearchResult
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {Array.<searchResult>} result - search result.
-    * @return {undefined}
-    */
-   
-	/**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithResultFlag
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {boolean} result - result flag.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithListContents
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {Array.<fileStat>} contents - list contents information.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithStatContent
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {fileStat} content - stat content information.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithFileData
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {string} content - file contetns.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithAppList
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {appsInfoContent} content - applications information.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithAppInfo
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {appInfoContent} content - application information.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithUserInfo
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {userInfo} content - user information.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithSecretKey
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {string} key - new secret key.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithFilesystem
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {webidaFS} fs - webida file system.
-    * @return {undefined}
-    */
-
-    /**
-    * Callback function. If function finished successfully then err is undefined
-    *
-    * @callback requestCallbackWithACL
-    * @param {err} error - Error message. Error message is string or undefined
-    * @param {acl} acl - access control list.
-    * @return {undefined}
-    */
-    
-	/**
-    * Error type.
-    * @typedef {string|undefined} err
-    */
-    
-	/**
-    * Application id - App id should be at least 5 characters. and each character must be [a-z0-9-_~.@]
-    * @typedef {string} appId
-    */
-    
-	/**
-    * Application type - Current app type is only valid 'html'|'nodejs'
-    * @typedef {string} appType
-    */
-
-    /**
-    * Application status - Status is only vaild 'running'|'stopped'
-    * @typedef {string} appStatus
-    */
-    
-	/**
-    * Webida file system's path - eg. '/ws1/dir1', 'ws1/file1'
-    * @typedef {string} path
-    */
-   
-	/**
-    * Webida file system's url - eg. wfs://host/fsid
-    * @typedef {string} fsUrl
-    */
-    
-	/**
-    * Creation mode - Creation mode is only vaild 'create'|'extract'
-    * @typedef {string} creationMode
-    */
-    
-	/**
-    * Encoding type - Read encoding type is only vaild 'ascii'|'utf8'|'base64'|'binary'|undefined
-    * @typedef {string|undefined} readEncodingType
-    */
-    
-	/**
-    * Encoding type - Write encoding type is only vaild 'base64'|undefined
-    * @typedef {string} writeEncodingType
-    */
-
-	/**
-    * Search options.
-    * @typedef {object} searchOption
-    * @property {boolean} [ignorecase] - ignorecase
-    * @property {boolean} [wholeword] - wholeword
-    * @property {path} [includefile] - includefile
-    * @property {path} [excludedir] - excludedir
-    * @summary {ignorecase:boolean, wholeword:boolean, includefile:string, excludedir:string}
-    */
-
-	/**
-    * Search result.
-    * @typedef {object} searchResult
-    * @property {path} filename - search file path
-    * @property {Array.<searchMatchInfo>} match - wholeword
-    * @summary {filename:path, match:[{line:int, text:string}]}
-    */
-
-	/**
-    * Search match file information.
-    * @typedef {object} searchMatchInfo
-    * @property {int} line - matching line number
-    * @property {string} text - matching line text
-    */
-
-	/**
-    * List directory contents.
-    * @typedef {object} fileStat
-    * @property {string} filename - file name 
-    * @property {path} path - file path
-    * @property {boolean} isFile - if contents is file then ture 
-    * @property {boolean} isDirectory - if contents is directory then true
-    * @property {int} size - file size. if contents is directory then size is 4096
-    * @property {string} atime - access time
-    * @property {string} mtime - modify time
-    * @property {string} ctime - create time
-    * @summary {filename:string, path:path, isFile:boolean, isDirectory:boolean, size:int, 
-    *           atime:string, mtime:string, ctime:string}
-    */
-
-	/**
-    * App list contents.
-    * @typedef {object} appsInfoContent
-    * @property {string} result - Result value must be 'ok'
-    * @property {Array.<appInfo>} apps - appication information list
-    * @summary {result:string, apps:[{appid:appId, apptype:appType, name:string, desc:string, owner:string, 
-    *           status:appStatus, pid:int, port:int, [url:path]}]}
-    */
-
-	/**
-    * App list contents.
-    * @typedef {object} appInfoContent
-    * @property {string} result - Result value must be 'ok'
-    * @property {appInfo} apps - appication information list
-    * @summary {result:string, appinfo:{appid:appId, apptype:appType, name:string, desc:string, owner:string, 
-    *           status:appStatus, pid:int, port:int, [url:path]}}
-    */
-    
-	/**
-    * App information contents.
-    * @typedef {object} appInfo
-    * @property {appId} appid - app id
-    * @property {appType} apptype - app type
-    * @property {string} name - app name
-    * @property {string} desc - app description
-    * @property {string} owner - app owner
-    * @property {appStatus} status - app status
-    * @property {int} pid - process id
-    * @property {int} port - port number
-    * @property {path} [url] - application url
-    * @summary {appid:appId, apptype:appType, name:string, desc:string, owner:string, status:appStatus, 
-    *          pid:int, port:int, [url:path]}
-    */
-    
-	/**
-    * user information.
-    * @typedef {object} userInfo
-    * @property {string} _id - user id
-    * @property {passportUserProfile} authinfo - app type
-    * @property {string} email - user mail
-    * @property {string} fsid - file system id
-    * @property {string} lastLoginTimestampUTC - last login time
-    * @property {string} passwordDigest - password digest
-    * @property {string} username - user name
-    * @property {Array.<string>} [secretKeys] - secret key list
-    * @summary {_id:string, email:string, fsid:string, lastLoginTimestampUTC:string, passwordDigest:string, username:string,
-    *          authinfo:{[provider:string], [id:string], [displayName:string], [emails:[{value:string, type:string}]], 
-    *          [photos:[{value:string}]], [name:{familyName:string, givenName:string, middleName:string}]}}
-    */
-    
-	/**
-    * oauth information.
-    * @typedef {object} passportUserProfile
-    * @property {string} [provider] - The provider which with the user authenticated
-    * @property {string} [id] - A unique identifier for the user, as generated by the service provider.
-    * @property {string} [displayName] - The name of this user, suitable for display. 
-    * @property {Array.<passportEmail>} [emails] - user email list
-    * @property {Array.<passportPhoto>} [photos] - user photo
-    * @property {passportName} [name] - user name
-    * @summary {[provider:string], [id:string], [displayName:string], [emails:[{value:string, type:string}]], 
-    *          [photos:[{value:string}]], [name:{familyName:string, givenName:string, middleName:string}]}
-    */
-    
-	/**
-    * oauth information.
-    * @typedef {object} passportEmail
-    * @property {string} [value] - The actual email address.
-    * @property {string} [type] - The type of email address (home, work, etc.).
-    * @summary {value:string, type:string}
-    */
-    
-	/**
-    * oauth information.
-    * @typedef {object} passportPhoto
-    * @property {string} [value] - The URL of the image.
-    * @summary {value:string}
-    */
-    
-	/**
-    * oauth information.
-    * @typedef {object} passportName
-    * @property {string} [familyName] - The family name of this user, or "last name" in most Western languages.
-    * @property {string} [givenName] - The given name of this user, or "first name" in most Western languages.
-    * @property {string} [middleName] - The middle name of this user.
-    * @summary {familyName:string, givenName:string, middleName:string}
-    */
-    
-	/**
-    * binary large object
-    * @typedef {object} blob
-    */
-    
-	/**
-    * window object
-    * @typedef {object} window
-    */
-    
-	/**
-    * webida file system
-    * @typedef {object} webidaFS
-    * @property {fsUrl} fsUrl - file system url.
-    * @property {string} username - user name.
-    * @property {string} username - user name.
-    * @property {string} username - user name.
-    */
-    
-	/**
-    * access control list. eg. {user1:'r', user2:'w', user3:'rw'}
-    * @typedef {object} acl
-    * @property {string} username - user name.
-    * @property {string} accessControl - access control. 'r'|'w'|'rw'
-    */
- 
-    /**
-    * File System Apis.
-    * @namespace
-    * @name FileSystem
-    */
-    
+    // fs service api
     /**
      * FileSystem class
      * This class represents a Webida FileSystem.
-     * @memberOf FileSystem 
-     * @method FileSystem
-     * @param {fsUrl} fsUrl url for the Webida FileSystem. eg. wfs://host/fsid
-     * @return {webidaFS}
+     *
+     * @param {String} fsUrl url for the Webida FileSystem. eg. wfs://host/fsid
      */
     var FileSystem = Webida.fs.FileSystem = function FileSystem(fsUrl) {
         this.fsUrl = fsUrl;
@@ -351,15 +39,23 @@
         this.host = splittedUrl[2];
         this.fsid = splittedUrl[3];
     };
-    
-   /**
+
+    /**
+    * File System Apis.
+    * @namespace
+    * @name FileSystem
+    */
+
+    /**
+    * Export a zipped file (zip)
+    *
     * This function let the browser download the zipped file.
     *
-    * @memberOf FileSystem 
-    * @method FileSystem.exportZip
-    * @param {Array.<path>} source - Source path list. eg. ['/ws1/file1', 'ws1/file2']
-    * @param {string} filename - Filename of the zipfile. eg. "archive.zip"
-    * @return {undefined}
+    * @memberOf FileSystem
+    * @method exportZip
+    * @instance
+    * @param {Array} source - Source path list. eg. ['/ws1/file1', 'ws1/file2']
+    * @param {String} filename - Filename of the zipfile. eg. "archive.zip"
     */
     FileSystem.prototype.exportZip = function (source, filename) {
         var argument = '/?source=' + source.join() + '&target=' + filename + '&mode=export';
@@ -368,19 +64,17 @@
         location.href = url;
     };
 
-   /**
-    * 
+    /**
     * Create / Extract a archive file (zip)
     *
     * @memberOf FileSystem
     * @method archive
-    * @param {Array.<path>} source - Source path list(eg. ['/ws1/file1', 'ws1/file2']) for creating zipfile.
-    * @param {path} target - Target path
-    * @param {creationMode} mode - Creation mode. "create" | "extract"
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @instance
+    * @param {Array} source - Source path list(eg. ['/ws1/file1', 'ws1/file2']) for creating zipfile.
+    *                         one zipefile path(eg. '/ws1/file1.zip') for extrating zipfile
+    * @param {String} target - Target path
+    * @param {String} mode - Creation mode. "create" | "extract"
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.archive = function (source, target, mode,  callback) {
         var argument = '/?source=' +
@@ -404,14 +98,11 @@
     *
     * @memberOf FileSystem
     * @method searchFiles
-    * @param {string} keyword - Find keyword
-    * @param {path} where - Find target path
-    * @param {searchOption} options - Search option
-    * @param {requestCallbackWithSearchResult} callback -
-    *        (error:string|undefined, [result:{filename:path, [match:{line:int, text:string}]}]) → undefine
-    *        <br>If function finished successfully then err is undefined
-    *        And 'result' is search result list.
-    * @return {undefined}
+    * @instance
+    * @param {String} keyword - Find keyword
+    * @param {String} where - Find target path
+    * @param {Object} options - Options { ignorecase: {Boolean}, wholeword: {Boolean}, includefile: {String}, excludedir: {String} }
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is search result list.
     */
     FileSystem.prototype.searchFiles = function (keyword, where, options, callback) {
         var argument = '/' + escape(keyword) + '?where=' + where;
@@ -443,13 +134,11 @@
     *
     * @memberOf FileSystem
     * @method copy
-    * @param {path} source - Source path
-    * @param {path} destination - Destination path | destination url
-    * @param {boolean} [mode=false] - Recursive mode. "true" | "false" (default is "false")
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @instance
+    * @param {String} source - Source path
+    * @param {String} destination - Destination path | destination url
+    * @param {Boolean} mode - Recursive mode. "true" | "false" (default is "false")
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.copy = function (src, dest, recursive, callback) {
         var path = '/?src=' + src + '&dest=' + dest;
@@ -480,12 +169,10 @@
     *
     * @memberOf FileSystem
     * @method createDirectory
-    * @param {path} target - Directory path whitch to be crated.
-    * @param {boolean} [mode=false] - Recursive mode. "true" | "false" (default is "false")
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @instance
+    * @param {String} target - Directory path whitch to be crated.
+    * @param {Boolean} mode - Recursive mode. "true" | "false" (default is "false")
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.createDirectory = function (src, recursive, callback) {
         var path = src;
@@ -517,11 +204,9 @@
     *
     * @memberOf FileSystem
     * @method createNewFile
-    * @param {path} target - File path whitch to be crated.
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @instance
+    * @param {String} target - File path whitch to be crated.
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.createNewFile = function (path, callback) {
         var self = this;
@@ -556,12 +241,9 @@
     *
     * @memberOf FileSystem
     * @method exists
-    * @param {path} target - Check path.
-    * @param {requestCallbackWithResultFlag} callback -
-    *        (error:string|undefined, [resultFlag:boolean]) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And if file exist then resultFlag is true. else resultFlag is false.
-    * @return {undefined}
+    * @instance
+    * @param {String} path - Check path
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is check result. true | false.
     */
     FileSystem.prototype.exists = function (path, callback) {
         $.ajax({
@@ -583,12 +265,9 @@
     *
     * @memberOf FileSystem
     * @method isDirectory
-    * @param {path} target - Check path.
-    * @param {requestCallbackWithResultFlag} callback -
-    *        (error:string|undefined, [resultFlag:boolean]) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And if target path is directory then resultFlag is true. else resultFlag is false.
-    * @return {undefined}
+    * @instance
+    * @param {String} path - Check path
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is check result. true | false.
     */
     FileSystem.prototype.isDirectory = function (path, callback) {
         $.ajax({
@@ -612,12 +291,9 @@
     *
     * @memberOf FileSystem
     * @method isEmpty
-    * @param {path} target - Check path
-    * @param {requestCallbackWithResultFlag} callback -
-    *        (error:string|undefined, [resultFlag:boolean]) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And if target path is empty directory then resultFlag is true. else resultFlag is false.
-    * @return {undefined}
+    * @instance
+    * @param {String} path - Check path
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is check result. true | false.
     */
     FileSystem.prototype.isEmpty = function (path, callback) {
         $.ajax({
@@ -648,12 +324,9 @@
     *
     * @memberOf FileSystem
     * @method isFile
-    * @param {path} target - Check path
-    * @param {requestCallbackWithResultFlag} callback -
-    *        (error:string|undefined, [resultFlag:boolean]) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And if target path is file then resultFlag is true. else resultFlag is false.
-    * @return {undefined}
+    * @instance
+    * @param {String} path - Check path
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is check result. true | false.
     */
     FileSystem.prototype.isFile = function (path, callback) {
         $.ajax({
@@ -675,15 +348,11 @@
     * Get the list of specified path. you can specify recursive mode.
     *
     * @memberOf FileSystem
-    * @method list
-    * @param {path} target - List directory path
-    * @param {boolean} [mode=false] - Recursive mode. "true" | "false" (default is "false")
-    * @param {requestCallbackWithListContents} callback -
-    *        (error:string|undefined, [contents:[{filename:string, path:path, isFile:boolean, isDirectory:boolean,
-    *        size:int, atime:string, mtime:string, ctime:string}]]) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And contents is sub directory/file information list.
-    * @return {undefined}
+    * @method lists
+    * @instance
+    * @param {String} path - Check path
+    * @param {Boolean} mode - Recursive mode. "true" | "false" (default is "false")
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is sub directory/file information list.
     */
     FileSystem.prototype.list = function (path, recursive, callback) {
         if (typeof recursive === 'function') {
@@ -712,13 +381,9 @@
     *
     * @memberOf FileSystem
     * @method stat
-    * @param {path} target - Check path
-    * @param {requestCallbackWithStatContent} callback -
-    *        (error:string|undefined, contents:[{filename:string, path:path, isFile:boolean, isDirectory:boolean, size:int,
-    *        atime:string, mtime:string, ctime:string}]) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And contents is path information.
-    * @return {undefined}    
+    * @instance
+    * @param {String} path - Stat path
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is path's information.
     */
     FileSystem.prototype.stat = function (path, cb) {
         $.ajax({
@@ -739,12 +404,10 @@
     *
     * @memberOf FileSystem
     * @method remove
-    * @param {path} target - Target path
-    * @param {boolean} [mode=false] - Recursive mode. "true" | "false" (default is "false")
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @instance
+    * @param {String} path - Source path
+    * @param {Boolean} mode - Recursive mode. "true" | "false" (default is "false")
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.remove = function (path, recursive, callback) {
         if (typeof recursive === 'function') {
@@ -772,13 +435,11 @@
     * Move file
     *
     * @memberOf FileSystem
-    * @method rename
-    * @param {path} oldpath - Source path
-    * @param {path} newpath - destination path | destination url
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @method copy
+    * @instance
+    * @param {String} oldpath - Source path
+    * @param {String} newpath - destination path | destination url
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.rename = function (oldpath, newpath, callback) {
         var path = '/?oldpath=' + oldpath + '&newpath=' + newpath;
@@ -801,13 +462,10 @@
     *
     * @memberOf FileSystem
     * @method readFile
-    * @param {path} target - Read file path
-    * @param {readEncodingType} type - Encoding type. 'ascii' | 'utf8' | 'base64' | 'binary' | undefined
-    * @param {requestCallbackWithFileData} callback -
-    *        (error:string|undefined, contents:string) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And contents is file contents.
-    * @return {undefined} 
+    * @instance
+    * @param {String} path - Read file path
+    * @param {String} type - Encoding type. "ascii" | "utf8" | "base64" | "binary"
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is file contents.
     */
     FileSystem.prototype.readFile = function (path, encoding, callback) {
         var opt = {};
@@ -835,14 +493,11 @@
     *
     * @memberOf FileSystem
     * @method writeFile
-    * @param {path} target - Path of the file in filesystem
-    * @param {writeEncodingType} [type] - Encoding type. 'base64'|undefined
-    * @param {string|file|blob} data - Base64 encoded string or string. 
-    *        If type is ommited then data is file or blob object
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @instance
+    * @param {String} path - Path of the file in filesystem
+    * @param {String} [type] - Encoding type. "base64" | null
+    * @param {String|File|Object} data - Base64 encoded string or string. If type is ommited then data is File or Blob object
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.writeFile = function (path, encoding, data, callback) {
         var fd = new FormData();
@@ -880,12 +535,10 @@
     *
     * @memberOf FileSystem
     * @method getAcl
-    * @param {path} target - file path
-    * @param {requestCallbackWithACL} callback -
-    *        (error:string|undefined, acl:acl) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And acl is target's access control list.
-    * @return {undefined} 
+    * @instance
+    * @param {String} path - file path
+    * @param {function} callback(err,acl) - Callback function.
+    *        If api executed successfully then 'err' is null. And 'acl' is ACL of the resource.
     */
     FileSystem.prototype.getAcl = function (path, callback) {
         var opt = {};
@@ -914,12 +567,11 @@
     *
     * @memberOf FileSystem
     * @method setAcl
-    * @param {string} path - file path
-    * @param {acl} acl - new ACL. eg. {user1:'r',user2:'w',user3:'rw'}
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @instance
+    * @param {String} path - file path
+    * @param {Object} acl - new ACL. eg. {user1:'r',user2:'w',user3:'rw'}
+    * @param {function} callback(err,acl) - Callback function.
+    *        If api executed successfully then 'err' is null.
     */
     FileSystem.prototype.setAcl = function (path, newAcl, callback) {
         $.ajax({
@@ -946,35 +598,25 @@
     *
     * @memberOf FileSystem
     * @method mount
-    * @param {fsUrl} fsUrl - webida fs url
-    * @returns {webidaFS} - Mounted file system object
+    * @param {String} fsUrl - webida fs url
+    * @param {String} url - App root url
+    * @returns {Object} - Mounted file system object
     */
     Webida.fs.mount = function (fsUrl) {
         return new FileSystem(fsUrl);
     };
 
-    /**
-    * Get FileSystem object indicating the given Webida file system id
-    *
-    * @memberOf FileSystem
-    * @method mount
-    * @param {string} fsId - webida fs id
-    * @returns {webidaFS} - Mounted file system object
-    */
     Webida.fs.mountByFsid = function (fsid) {
         return new Webida.fs.FileSystem('wfs://webida/' + fsid);
     };
 
     /**
-    * Get My FileSystem Object
-    *
-    * @memberOf FileSystem
-    * @method getMyFilesystem
-    * @param {requestCallbackWithFilesystem} callback -
-    *        (error:string|undefined, filesystem:webidaFS) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And filesystem is file system object.
-    */
+     * Get My FileSystem Object
+     *
+     * @memberOf FileSystem
+     * @method getMyFilesystem
+     * @param {Function} callback - callback(err, fs)
+     */
     Webida.fs.getMyFilesystem = function (callback) {
         Webida.auth.myinfo(function (err, myinfo) {
             if (err) {
@@ -1000,8 +642,8 @@
     *
     * @memberOf AppService
     * @method isValidAppid
-    * @param {appId} appid - Application id
-    * @returns {boolean} App id validation check result. true | false
+    * @param {String} id - App id
+    * @returns {Boolean} App id validation check result. true | false
     */
     var APPID_PATTERN = /^(|[a-z0-9-_~.@]{5,})$/;
     Webida.app.isValidAppid = function isValidAppid(appid) {
@@ -1011,25 +653,23 @@
     /**
     * Get the host of currently used Webida server
     *
-    * @memberOf AppService
-    * @method getWebidaHost
-    * @returns {string} host of current Webida server. eg. 'webida.org'
+    * @returns {String} host - host of current Webida server. eg. 'webida.org'
     */
     Webida.app.getWebidaHost = function getWebidaHost() {
         return Webida.conf.webidaHost;
     };
 
     /**
-    * Check input application type's validation
+    * Check input app type's validation
     *
     * @memberOf AppService
     * @method isValidApptype
-    * @param {appType} apptype - App type
-    * @returns {boolean} App type validation check result. true | false
+    * @param {String} type - App type
+    * @returns {Boolean} App type validation check result. true | false
     */
     var VALID_APPTYPES = ['html', 'nodejs'];
     Webida.app.isValidApptype = function isValidApptype(apptype) {
-        for (var i in VALID_APPTYPES) {
+        for(var i in VALID_APPTYPES) {
             if (VALID_APPTYPES.hasOwnProperty(i) && VALID_APPTYPES[i] === apptype) {
                 return true;
             }
@@ -1042,14 +682,11 @@
     *
     * @memberOf AppService
     * @method createApp
-    * @param {appId} appid - App id
-    * @param {appType} apptype - App type
-    * @param {string} name - App name
-    * @param {string} desc - App description
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} id - App id
+    * @param {String} type - App type
+    * @param {String} name - App name
+    * @param {String} desc - App description
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.app.createApp = function createApp(appid, apptype, name, desc, callback) {
         if (!Webida.app.isValidAppid(appid)) {
@@ -1090,16 +727,13 @@
     *
     * @memberOf AppService
     * @method changeApp
-    * @param {appId} id - App id
-    * @param {appId} newId - New app type
-    * @param {appType} type - App type. "html" | "nodejs"
-    * @param {string} name - App name
-    * @param {string} desc - App description
-    * @param {string} owner - App owner
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} id - App id
+    * @param {String} newId - New app type
+    * @param {String} type - App type. "html" | "nodejs"
+    * @param {String} name - App name
+    * @param {String} desc - App description
+    * @param {String} owner - App owner
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.app.changeApp = function changeApp(appid, newappid, apptype, name, desc, owner, callback) {
         if (!Webida.app.isValidAppid(appid)) {
@@ -1146,11 +780,7 @@
     *
     * @memberOf AppService
     * @method myApps
-    * @param {requestCallbackWithAppList} callback -
-    *        (error:string|undefined, myAppInfoList:appsInfoContent) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And myAppInfoList is my application informaiton list.
-    * @return {undefined} 
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is app information list.
     */
     Webida.app.myApps = function myApps(callback) {
         $.ajax({
@@ -1175,11 +805,7 @@
     *
     * @memberOf AppService
     * @method allApps
-    * @param {requestCallbackWithAppList} callback -
-    *        (error:string|undefined, allAppInfoList:appsInfoContent) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And myAppInfoList is all application informaiton list.
-    * @return {undefined}
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is app information list.
     */
     Webida.app.allApps = function allApps(callback) {
         $.ajax({
@@ -1200,16 +826,12 @@
     };
 
     /**
-    * Get application information using appId.
+    * Get application information using id.
     *
     * @memberOf AppService
     * @method getAppInfo
-    * @param {appId} appId - Application id
-    * @param {requestCallbackWithAppInfo} callback -
-    *        (error:string|undefined, appInfo:appInfoContent) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And appInfo is application informaiton.
-    * @return {undefined}
+    * @param {String} id - Application id
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is app information.
     */
     Webida.app.getAppInfo = function getAppInfo(appId, callback) {
 
@@ -1236,11 +858,8 @@
     *
     * @memberOf AppService
     * @method deleteApp
-    * @param {appId} appId - Application id
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} id - Application id
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.app.deleteApp = function deleteApp(appId, callback) {
 
@@ -1267,11 +886,8 @@
     *
     * @memberOf AppService
     * @method startApp
-    * @param {appId} appId - Application id
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} id - Application id
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.app.startApp = function startApp(appId, callback) {
 
@@ -1298,11 +914,8 @@
     *
     * @memberOf AppService
     * @method stopApp
-    * @param {appId} appId - Application id
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} id - Application id
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.app.stopApp = function stopApp(appId, callback) {
         $.ajax({
@@ -1328,11 +941,8 @@
     *
     * @memberOf AppService
     * @method deployApp
-    * @param {appId} appId - Application id
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} id - Application id
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.app.deployApp = function deployApp(srcUrl, type, callback) {
         $.ajax({
@@ -1359,13 +969,12 @@
     *
     * @memberOf AppService
     * @method LaunchApp
-    * @param {appId} appid - Application id
-    * @param {boolean} mode - Launch mode. If mode is true then new windows opend using app. 
-    *        If false then app is launction in current window
-    * @param {string} querystring - Application launch option. This string is added in tartget url.
-    * @return {window} - App is launching in current/another browser. return is window object
+    * @param {String} id - Application id
+    * @param {Boolean} mode - Launch mode. If mode is true then new windows opend using app. If false then app is launction in current window
+    * @param {String} queryString - Application launch option. This string is added in tartget url.
+    * @return {Object} - App is launching in current/another browser. return is window object
     */
-    Webida.app.launchApp = function launchApp(appid, newWindowFlag, querystring) {
+    Webida.app.launchApp = function launchApp(appid, newWindowFlag, queryString) {
         var addr = appid + '.' + Webida.app.getWebidaHost();
 
         //Add port information
@@ -1377,8 +986,8 @@
         var url = window.location.protocol + '//' + addr + '/';
 
         //Add query string
-        if (querystring) {
-            url = url + querystring;
+        if (queryString) {
+            url = url + queryString;
         }
 
         if (newWindowFlag) {
@@ -1400,13 +1009,9 @@
     *
     * @memberOf AuthService
     * @method login
-    * @param {string} name - User name
-    * @param {string} password - User password
-    * @param {requestCallbackWithUserInfo} callback -
-    *        (error:string|undefined, userInfo:userInfo) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And userInfo is login user informaiton.
-    * @return {undefined}
+    * @param {String} name - User name
+    * @param {String} password - User password
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data.autoinfo' is login user's information.
     */
     Webida.auth.login = function (username, password, callback) {
         var formData = new FormData();
@@ -1440,10 +1045,7 @@
     *
     * @memberOf AuthService
     * @method logout
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.auth.logout = function (callback) {
         $.ajax({
@@ -1468,15 +1070,11 @@
     *
     * @memberOf AuthService
     * @method singup
-    * @param {string} email - User email
-    * @param {string} username - User name
-    * @param {string} pwssword - User password
-    * @param {string} authphrase - Authorization keyword
-    * @param {requestCallbackWithUserInfo} callback -
-    *        (error:string|undefined, userInfo:userInfo) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And userInfo is singup user informaiton.
-    * @return {undefined}
+    * @param {String} email - User email
+    * @param {String} username - User name
+    * @param {String} pwssword - User password
+    * @param {String} authphrase - Authorization keyword
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is user information.
     */
     Webida.auth.signup = function (email, username, password, authphrase, callback) {
         var formData = new FormData();
@@ -1512,11 +1110,8 @@
     *
     * @memberOf AuthService
     * @method singup
-    * @param {string} username - User name
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} username - User name
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.auth.signout = function (username, callback) {
         var formData = new FormData();
@@ -1544,11 +1139,7 @@
     *
     * @memberOf AuthService
     * @method myinfo
-    * @param {requestCallbackWithUserInfo} callback -
-    *        (error:string|undefined, userInfo:userInfo) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And userInfo is my informaiton.
-    * @return {undefined}
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is my information.
     */
     Webida.auth.myinfo = function (callback) {
         $.ajax({
@@ -1576,12 +1167,8 @@
     *
     * @memberOf AuthService
     * @method userinfo
-    * @param {string} name - User name
-    * @param {requestCallbackWithUserInfo} callback -
-    *        (error:string|undefined, userInfo:userInfo) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And userInfo is user informaiton.
-    * @return {undefined}
+    * @param {String} name - User name
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is user information.
     */
     Webida.auth.userinfo = function (username, callback) {
         var opt = {username: username};
@@ -1608,11 +1195,7 @@
     *
     * @memberOf AuthService
     * @method addNewSecretKey
-    * @param {requestCallbackWithSecretKey} callback -
-    *        (error:string|undefined, key:string) -> undefined
-    *        <br>If function finished successfully then err is undefined.
-    *        And key is new secret key.
-    * @return {undefined}
+    * @param {function} callback(err,data) - Callback function. If api executed successfully then 'err' is null. And 'data' is secretkey.
     */
     Webida.auth.addNewSecretKey = function (callback) {
         $.ajax({
@@ -1637,11 +1220,8 @@
     *
     * @memberOf AuthService
     * @method deleteSecretKey
-    * @param {string} key - SecretKey
-    * @param {requestCallback} callback - 
-    *        (error:string|undefined) -> undefined 
-    *        <br>If function finished successfully then err is undefined
-    * @return {undefined}
+    * @param {String} key - SecretKey
+    * @param {function} callback(err) - Callback function. If api executed successfully then 'err' is null.
     */
     Webida.auth.deleteSecretKey = function (secretKey, callback) {
         $.ajax({
