@@ -258,6 +258,9 @@ function buildNav(members) {
         members.classes.forEach(function(c) {
             if ( !hasOwnProp.call(seen, c.longname) ) {
                 classNav += '<li>'+linkto(c.longname, c.name)+'</li>';
+                classNav += '<li>' + '<a href="' + c.name + '.html#property"> -property</a>' + '</li>';
+                classNav += '<li>' + '<a href="' + c.name + '.html#method"> -method</a>' + '</li>';
+                classNav += '<li>' + '<a href="' + c.name + '.html#type"> -type</a>' + '</li>';
             }
             seen[c.longname] = true;
         });
@@ -267,6 +270,7 @@ function buildNav(members) {
             nav += classNav;
             nav += '</ul>';
         }
+
     }
 
     if (members.events.length) {
@@ -282,7 +286,7 @@ function buildNav(members) {
     }
     
     if (members.namespaces.length) {
-        nav += '<h3>Category</h3><ul>';
+        nav += '<h3>Namespaces</h3><ul>';
         members.namespaces.forEach(function(n) {
             if ( !hasOwnProp.call(seen, n.longname) ) {
                 nav += '<li>'+linkto(n.longname, n.name)+'</li>';
@@ -315,11 +319,17 @@ function buildNav(members) {
     }
     
     if (members.globals.length) {
+        var isType = false;
+        var isMethod = false;
+
         members.globals.forEach(function(g) {
-            if ( g.kind !== 'typedef' && !hasOwnProp.call(seen, g.longname) ) {
-                globalNav += '<li>' + linkto(g.longname, g.name) + '</li>';
+            if ( g.kind === 'function' && !isMethod ) {
+                globalNav += '<li>' + '<a href="global.html#method">method</a>' + '</li>';
+                isMethod = true;
+            } else if ( g.kind === 'typedef' && !isType ) {
+                globalNav += '<li>' + '<a href="global.html#type">type</a>' + '</li>';
+                isType = true;
             }
-            seen[g.longname] = true;
         });
         
         if (!globalNav) {

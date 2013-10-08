@@ -32,6 +32,10 @@
     
     <?js if (doc.kind === 'class') { ?>
         <?js= self.partial('method.tmpl', doc) ?>
+        <?js if (doc.properties && doc.properties.length ) { ?>
+            <h3 id="property">Properties</h3>
+            <dl><?js= self.partial('properties.tmpl', doc.properties) ?></dl>
+        <?js } ?>
     <?js } else { ?>
         <?js if (doc.description) { ?>
             <div class="description"><?js= doc.description ?></div>
@@ -109,7 +113,7 @@
         var methods = self.find({kind: 'function', memberof: title === 'Global' ? {isUndefined: true} : doc.longname});
         if (methods && methods.length && methods.forEach) { 
     ?>
-        <h3 class="subsection-title">Methods</h3>
+        <h3 id="method" class="subsection-title">Methods</h3>
         
         <dl><?js methods.forEach(function(m) { ?>
             <?js= self.partial('method.tmpl', m) ?>
@@ -120,7 +124,7 @@
         var typedefs = self.find({kind: 'typedef', memberof: title === 'Global' ? {isUndefined: true} : doc.longname}); 
         if (typedefs && typedefs.length && typedefs.forEach) { 
     ?>
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 id="type" class="subsection-title">Type Definitions</h3>
         
         <dl><?js typedefs.forEach(function(e) {
                 if (e.signature) {

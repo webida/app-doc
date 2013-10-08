@@ -154,6 +154,16 @@ h4
 	color: #A35A00;
 }
 
+h41
+{
+	font-size: 130%;
+	font-weight: bold;
+	letter-spacing: -0.01em;
+	margin-top: 16px;
+	margin: 18px 0 3px 0;
+	color: #6495ED;
+}
+
 h5, .container-overview .subsection-title
 {
 	font-size: 120%;
