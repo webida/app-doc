@@ -107,24 +107,13 @@ function hashToLink( doclet, hash ) {
 }
 
 function needsSignature( doclet ) {
-	var needsSig = false;
-
 	// function and class definitions always get a signature
-	if ( doclet.kind === 'function' || doclet.kind === 'class' ) {
-		needsSig = true;
-	}
-	// typedefs that contain functions get a signature, too
-	else if ( doclet.kind === 'typedef' && doclet.type && doclet.type.names &&
-		doclet.type.names.length ) {
-		for ( var i = 0, l = doclet.type.names.length; i < l; i++ ) {
-			if ( doclet.type.names[i].toLowerCase() === 'function' ) {
-				needsSig = true;
-				break;
-			}
-		}
-	}
-
-	return needsSig;
+	if ( doclet.kind === 'function' || doclet.kind === 'class' || 
+         doclet.kind === 'typedef' ) {
+		return true;
+	} else {
+        return false;
+    }
 }
 
 function addSignatureParams( f ) {
@@ -165,6 +154,67 @@ function addSignatureParams( f ) {
     }   
 
     f.signature = (f.signature || '') + '(' + pset.join( ', ' ) + ')';
+}
+
+function addSignatureTypesDefs( f ) {
+    // get parameter name:type set
+    var signature = '';
+
+    f.type.names.forEach( function ( type ) {
+        if (type === 'object') {
+            if (f.properties) {
+                var pset = []; 
+                f.properties.forEach(function(p) {
+                    if (p.type) {
+                        var typeNames = '';
+                        p.type.names.forEach(function(n) {
+                            if (/Array\.<.*>/.test(n)) {
+                                var nn = n.substring(7, n.length -1);
+                                nn = '[' + nn + ']';
+                            } else {
+                                var nn = n;
+                            }
+         
+                            if (typeNames === '') {
+                                typeNames = nn;
+                            } else {
+                                typeNames = typeNames + '|' + nn;
+                            }
+                        });
+                        var param = p.name + ':' + typeNames;
+                    } else {
+                        var param = p.name;
+                    }
+         
+                    if (p.optional) {
+                        param = '[' + param + ']';
+                    }
+         
+                    pset.push(param);
+                }); 
+
+                if (signature === '') {
+                    signature = '{' + pset.join( ', ' ) + '}';
+                } else {
+                    signature = signature + ' | ' + '{' + pset.join( ', ' ) + '}';
+                }
+            } else {
+                if (signature === '') {
+                    signature = '{}'
+                } else {
+                    signature = signature + ' | ' + '{}';
+                }
+            }
+        } else {
+            if (signature === '') {
+                signature = type
+            } else {
+                signature = signature + ' | ' + type;
+            }
+        }
+    });
+ 
+    f.signature = (f.signature || '') + ' ::= ' + signature
 }
 
 function addSignatureReturns( f ) {
@@ -518,9 +568,31 @@ exports.publish = function ( taffyData, opts, tutorials ) {
 		}
 
 		if ( needsSignature( doclet ) ) {
-			addSignatureParams( doclet );
-			addSignatureReturns( doclet );
-			addAttribs( doclet );
+			// function and class definitions and typedef's function
+			if ( doclet.kind === 'function' || doclet.kind === 'class' ) {
+				addSignatureParams( doclet );
+				addSignatureReturns( doclet );
+				addAttribs( doclet );
+			}
+			// typedefs that contain functions get a signature, too
+			else if ( doclet.kind === 'typedef' ) {
+                var functionFlag = false;
+
+                for ( var i = 0, l = doclet.type.names.length; i < l; i++ ) { 
+                    if ( doclet.type.names[i].toLowerCase() === 'function' ) { 
+                        functionFlag = true;
+                        break;
+                    }   
+                }  
+
+                if (functionFlag) {
+					addSignatureParams( doclet );
+					addSignatureReturns( doclet );
+					addAttribs( doclet );
+                } else {
+                    addSignatureTypesDefs( doclet );
+                }
+			}
 		}
 	} );
 
