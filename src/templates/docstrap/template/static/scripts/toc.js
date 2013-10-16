@@ -57,9 +57,15 @@ $.fn.toc = function(options) {
       //add anchor
       var anchor = $('<span/>').attr('id', opts.anchorName(i, heading, opts.prefix)).insertBefore($h);
 
+      if ($h.context.id) {
+              var text = $h.context.id;
+      } else {
+              var text = opts.headerText(i, heading, $h);
+      }
+
       //build TOC item
       var a = $('<a/>')
-        .text(opts.headerText(i, heading, $h))
+        .text(text)
         .attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
         .bind('click', function(e) { 
           scrollTo(e);

@@ -128,15 +128,49 @@ function needsSignature( doclet ) {
 }
 
 function addSignatureParams( f ) {
-	var params = helper.getSignatureParams( f, 'optional' );
+    var params = helper.getSignatureParams( f, 'optional' );
 
-	f.signature = (f.signature || '') + '(' + params.join( ', ' ) + ')';
+    // get parameter name:type set
+    var pset = []; 
+
+    if (f.params) {
+        f.params.forEach(function(p) {
+            if (p.type) {
+                var typeNames = '';
+                p.type.names.forEach(function(n) {
+                    if (/Array\.<.*>/.test(n)) {
+                        var nn = n.substring(7, n.length -1);
+                        nn = '[' + nn + ']';
+                    } else {
+                        var nn = n;
+                    }
+
+                    if (typeNames === '') {
+                        typeNames = nn;
+                    } else {
+                        typeNames = typeNames + '|' + nn;
+                    }
+                });
+                var param = p.name + ':' + typeNames;
+            } else {
+                var param = p.name;
+            }
+
+            if (p.optional) {
+                param = '[' + param + ']';
+            }
+
+            pset.push(param);
+        }); 
+    }   
+
+    f.signature = (f.signature || '') + '(' + pset.join( ', ' ) + ')';
 }
 
 function addSignatureReturns( f ) {
-	var returnTypes = helper.getSignatureReturns( f );
+    var returnTypes = helper.getSignatureReturns( f );
 
-	f.signature = '<span class="signature">' + (f.signature || '') + '</span>' + '<span class="type-signature">' + (returnTypes.length ? ' &rarr; {' + returnTypes.join( '|' ) + '}' : '') + '</span>';
+    f.signature = '<span class="signature">' + (f.signature || '') + '</span>' + '<span class="type-signature">' + (returnTypes.length ? ' &rarr; ' + returnTypes.join( '|' ) : '') + '</span>';
 }
 
 function addSignatureTypes( f ) {
