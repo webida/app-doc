@@ -4,13 +4,13 @@ var self = this;
 ?>
 <dt>
     <?js if (kind === 'typedef') { ?>
-        <h4 class="name" id="<?js= id ?>"><?js= ( 'Type: ' ) + name + (data.signature) ?></h4>
+        <h4 class="name" id="<?js= id ?>"><?js= ( 'type ' ) + name + (': ') + (data.signature) ?></h4>
 
         <?js if (data.summary) { ?>
         <p class="summary"><?js= summary ?></p>
         <?js } ?>
     <?js } else { ?>
-        <h4 class="name" id="<?js= id ?>"><?js= (kind === 'class' ? 'new ' : '') + name + (kind !== 'event' ? data.signature : '') ?></h4>
+        <h4 class="name" id="<?js= id ?>"><?js= (kind === 'class' ? 'new ' : '') + name + (': ') + (kind !== 'event' ? data.signature : '') ?></h4>
 
         <?js if (data.summary) { ?>
         <p class="summary"><?js= summary ?></p>

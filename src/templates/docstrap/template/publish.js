@@ -127,6 +127,10 @@ function addSignatureParams( f ) {
             if (p.type) {
                 var typeNames = '';
                 p.type.names.forEach(function(n) {
+                    if (/module:[\s\S]*\.[\s\S]*/.test(n)) {
+                        n = n.replace(/module:[\s\S]*\./i, '');
+                    } 
+         
                     if (/Array\.<.*>/.test(n)) {
                         var nn = n.substring(7, n.length -1);
                         nn = '[' + nn + ']';
@@ -161,6 +165,8 @@ function addSignatureTypesDefs( f ) {
     var signature = '';
 
     f.type.names.forEach( function ( type ) {
+        type = type.replace(/module:[\s\S]*\./i, '');
+         
         if (type === 'object') {
             if (f.properties) {
                 var pset = []; 
@@ -168,13 +174,14 @@ function addSignatureTypesDefs( f ) {
                     if (p.type) {
                         var typeNames = '';
                         p.type.names.forEach(function(n) {
+                            n = n.replace(/module:[\s\S]*\./i, '');
                             if (/Array\.<.*>/.test(n)) {
                                 var nn = n.substring(7, n.length -1);
                                 nn = '[' + nn + ']';
                             } else {
                                 var nn = n;
                             }
-         
+
                             if (typeNames === '') {
                                 typeNames = nn;
                             } else {
@@ -214,19 +221,37 @@ function addSignatureTypesDefs( f ) {
         }
     });
  
-    f.signature = (f.signature || '') + ' ::= ' + signature
+    f.signature = (f.signature || '') + signature
 }
 
 function addSignatureReturns( f ) {
     var returnTypes = helper.getSignatureReturns( f );
 
-    f.signature = '<span class="signature">' + (f.signature || '') + '</span>' + '<span class="type-signature">' + (returnTypes.length ? ' &rarr; ' + returnTypes.join( '|' ) : '') + '</span>';
+    var modifyReturnTypes = [];
+    returnTypes.forEach( function (returnType) {
+        if (/module:[\s\S]*\.[\s\S]*/.test(returnType)) {
+            returnType = returnType.replace(/module:[\s\S]*\./i, '');
+        } 
+
+        modifyReturnTypes.push(returnType);
+    });
+
+    f.signature = '<span class="signature">' + (f.signature || '') + '</span>' + '<span class="type-signature">' + (modifyReturnTypes.length ? ' &rarr; ' + modifyReturnTypes.join( '|' ) : '') + '</span>';
 }
 
 function addSignatureTypes( f ) {
 	var types = helper.getSignatureTypes( f );
 
-	f.signature = (f.signature || '') + '<span class="type-signature">' + (types.length ? ' :' + types.join( '|' ) : '') + '</span>';
+    var modifyTypes = [];
+    types.forEach( function (type) {
+        if (/module:[\s\S]*\.[\s\S]*/.test(type)) {
+            type = type.replace(/module:[\s\S]*\./i, '');
+        } 
+
+        modifyTypes.push(type);
+    });
+
+	f.signature = (f.signature || '') + '<span class="type-signature">' + (modifyTypes.length ? ': ' + modifyTypes.join( '|' ) : '') + '</span>';
 }
 
 function addAttribs( f ) {

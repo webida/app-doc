@@ -11,9 +11,9 @@
 		},
 		"systemName"      : "Webida",
 		"footer"          : "",
-		"copyright"       : "Webida",
+		"copyright"       : "SCore",
 		"navType"         : "vertical",
-		"theme"           : "cyborg",
+		"theme"           : "cerulean",
 		"linenums"        : true,
 		"collapseSymbols" : false,
 		"inverseNav"      : true

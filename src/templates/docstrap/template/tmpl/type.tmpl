@@ -6,10 +6,12 @@
     <?js var linkTxt = self.linkto(name, self.htmlsafe(name)) ?>
     <?js if (/Array\.&lt;[\s\S]*>/g.test(linkTxt)) { ?>
         <?js var modifyLinkTxt = linkTxt.substring(10, linkTxt.length -1); ?>
-        <?js= "[" + modifyLinkTxt + "]" ?>
+        <?js modifyLinkTxt = "[" + modifyLinkTxt + "]" ?>
     <?js } else { ?>
-        <?js= linkTxt ?>
+        <?js var modifyLinkTxt = linkTxt; ?>
     <?js } ?>
+    <?js modifyLinkTxt = modifyLinkTxt.replace(/module:[\s\S]*\./i, ''); ?>
+    <?js= modifyLinkTxt ?>
     </span>
 <?js if (i < data.length-1) { ?>|<?js } ?>
 <?js }); ?>
