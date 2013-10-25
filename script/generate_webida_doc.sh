@@ -1,10 +1,5 @@
 #!/bin/sh
 
-#remove old document source files
-rm -f src/webida-0.2.js
-rm -f src/fs.js
-rm -f src/file.js
-
 #remove old result files
 rm -rf doc
 
