@@ -228,13 +228,17 @@ function addSignatureReturns( f ) {
     var returnTypes = helper.getSignatureReturns( f );
 
     var modifyReturnTypes = [];
-    returnTypes.forEach( function (returnType) {
-        if (/module:[\s\S]*\.[\s\S]*/.test(returnType)) {
-            returnType = returnType.replace(/module:[\s\S]*\./i, '');
-        } 
-
-        modifyReturnTypes.push(returnType);
-    });
+    if (returnTypes.length !== 0) {
+        returnTypes.forEach( function (returnType) {
+            if (/module:[\s\S]*\.[\s\S]*/.test(returnType)) {
+                returnType = returnType.replace(/module:[\s\S]*\./i, '');
+            } 
+ 
+            modifyReturnTypes.push(returnType);
+        });
+    } else {
+        modifyReturnTypes.push('undefined');
+    }
 
     f.signature = '<span class="signature">' + (f.signature || '') + '</span>' + '<span class="type-signature">' + (modifyReturnTypes.length ? ' &rarr; ' + modifyReturnTypes.join( '|' ) : '') + '</span>';
 }
