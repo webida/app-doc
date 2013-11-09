@@ -404,7 +404,7 @@ function buildNav( members ) {
 		members.classes.forEach( function ( c ) {
 			if ( !hasOwnProp.call( seen, c.longname ) ) {
 
-				nav.class.members.push( linkto( c.longname, c.name ) );
+				nav.class.members.push( linkto( c.longname, c.longname ) );
 			}
 			seen[c.longname] = true;
 		} );
