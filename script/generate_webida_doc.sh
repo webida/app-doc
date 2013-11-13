@@ -11,4 +11,4 @@ mkdir ./node_modules/jsdoc/templates/webida
 cp -r ./src/templates/* ./node_modules/jsdoc/templates/webida/
 
 #generate doc
-./node_modules/.bin/jsdoc src/webida-0.2.js -d doc -t ./node_modules/jsdoc/templates/webida/ -c ./node_modules/jsdoc/templates/webida/webida.conf.json
+./node_modules/.bin/jsdoc src/webida-0.2.js src/ide.js -d doc -t ./node_modules/jsdoc/templates/webida/ -c ./node_modules/jsdoc/templates/webida/webida.conf.json
